@@ -1,23 +1,33 @@
 import java.util.*;
 
 public class WordBreak {
-    List<String> wordDict;
+
+    Map<String, Boolean> map = new HashMap();
+
     public boolean wordBreak(String inputString, List<String> wordDict) {
-        this.wordDict = wordDict;
+        for(String word : wordDict) {
+            map.put(word, true);
+        }
 
         return recurse(inputString);
     }
 
-    boolean recurse(String remainingstring) {
-        if(remainingstring.length() == 0) {
+    boolean recurse(String remainingString) {
+        if(map.containsKey(remainingString)) {
+            return map.get(remainingString);
+        }
+
+        if(remainingString.length() == 0) {
             return true;
         }
-            for(int i = 1; i <= remainingstring.length(); i++) {
-                if (wordDict.contains(remainingstring.substring(0, i)) && recurse(remainingstring.substring(i))) {
-                    return true;
-                }
+        for(int i = 1; i <= remainingString.length(); i++) {
+            if (map.getOrDefault(remainingString.substring(0, i), false) && recurse(remainingString.substring(i))) {
+                map.put(remainingString.substring(i), true);
+                return true;
             }
+        }
 
+        map.put(remainingString, false);
         return false;
     }
 }
