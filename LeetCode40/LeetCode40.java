@@ -2,13 +2,14 @@ import java.util.*;
 
 public class LeetCode40 {
 
-    Set<List<Integer>> result = new HashSet<>();
+    List<List<Integer>> result = new ArrayList<>();
     int[] candidates;
     int target;
 
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        this.candidates = candidates;
+        this.candidates = candidates.clone();
         this.target = target;
+        Arrays.sort(this.candidates);
 
         backtrack(0, new ArrayList<>(), 0);
 
@@ -21,9 +22,7 @@ public class LeetCode40 {
         }
 
         if(sum == target) {
-            List<Integer> sortedCombination = new ArrayList<>(combination);
-            Collections.sort(sortedCombination);
-            result.add(sortedCombination);
+            result.add(new ArrayList<>(combination));
             return;
         }
 
@@ -32,6 +31,9 @@ public class LeetCode40 {
         //2. explore other options by recursively calling the backtrack method
         //3. remove the last element to backtrack
         for(int i = index; i < candidates.length; i++) {
+            if(i > index && candidates[i] == candidates[i-1]) {
+                continue; //candidates array is sorted. This way we are ensuring not to take any duplicate combination
+            }
             sum += candidates[i];
             combination.add(candidates[i]);
 
