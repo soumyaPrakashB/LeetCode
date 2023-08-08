@@ -9,12 +9,12 @@ public class Permutations {
     public List<List<Integer>> permute(int[] nums) {
         this.nums = nums;
 
-        backtrack(0, new ArrayList<Integer>());
+        backtrack(new ArrayList<Integer>());
 
         return result;
     }
 
-    void backtrack(int index, List<Integer> currentPermutation) {
+    void backtrack(List<Integer> currentPermutation) {
         if(currentPermutation.size() == nums.length) {
             result.add(new ArrayList<>(currentPermutation));
             return;
@@ -28,7 +28,7 @@ public class Permutations {
 
             currentPermutation.add(nums[i]);
 
-            backtrack(i + 1, currentPermutation);
+            backtrack(currentPermutation);
 
             currentPermutation.remove(currentPermutation.size() - 1);
         }
