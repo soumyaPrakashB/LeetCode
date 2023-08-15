@@ -18,25 +18,26 @@ public class LeetCode39 {
         return result;
     }
 
-    void backtrack(int sum, List<Integer> combination, int index) {
-        if (sum > target) {
-            System.out.println(new ArrayList<>(combination));
+    void backtrack(int currentSum, List<Integer> currentCombination, int index) {
+        System.out.println(new ArrayList<>(currentCombination));
+        if (currentSum > target) {
+            //System.out.println(new ArrayList<>(currentCombination));
             return;
         }
 
-        if (sum == target) {
-            System.out.println(new ArrayList<>(combination));
-            result.add(new ArrayList<>(combination));
+        if (currentSum == target) {
+            //System.out.println(new ArrayList<>(currentCombination));
+            result.add(new ArrayList<>(currentCombination));
             return;
         }
+        //2, 7, 3
+        for (int i = index; i < candidates.length; i++) { //i = 0/ 1/ 2
+            currentSum += candidates[i]; //2 | 4 | 6 | 9
+            currentCombination.add(candidates[i]);
 
-        for (int i = index; i < candidates.length; i++) {
-            sum += candidates[i];
-            combination.add(candidates[i]);
+            backtrack(currentSum, currentCombination, i); //2, [2], 0 | 4, [2,2], 0 | 6, [2,2,2], 0 | 4, [2,2], 1 | [2,2,7] 11
 
-            backtrack(sum, combination, i);
-
-            sum -= combination.remove(combination.size() - 1);
+            currentSum -= currentCombination.remove(currentCombination.size() - 1); //6, [2,2,2], 0
         }
     }
 }
