@@ -1,7 +1,7 @@
 import java.util.*;
 public class PermutationsII {
 
-    Set<List<Integer>> result = new HashSet<>();
+    List<List<Integer>> result = new ArrayList<>();
 
     int[] nums;
 
@@ -12,47 +12,41 @@ public class PermutationsII {
         Arrays.sort(this.nums);
 
         for(int i = 0; i < nums.length; i++) {
-            if(map.containsKey(nums[i])) {
-                map.put(nums[i], map.get(nums[i]) + 1);
-            }
-            else {
-                map.put(nums[i], 1);
-            }
+                map.put(nums[i], map.getOrDefault(nums[i], 0)+ 1);
         }
 
         System.out.println(map);
 
         List<Integer> currentPermutation = new ArrayList<>();
 
-        backtrack(0, currentPermutation);
+        backtrack(map, currentPermutation);
 
-        return new ArrayList<>(result);
+        return result;
     }
 
-    void backtrack(int index, List<Integer> currentPermutation) {
+    void backtrack(Map<Integer, Integer> map, List<Integer> currentPermutation) {
         System.out.println(currentPermutation);
         if(currentPermutation.size() == nums.length) {
             result.add(new ArrayList<>(currentPermutation));
             return;
         }
 
-        for(int i = 0; i < nums.length; i++) {
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
 
-            if(i > index && nums[i-1] == nums[i]) {
+            int value = entry.getKey();
+            int count = entry.getValue();
+
+            if(count == 0) {
                 continue;
             }
 
-            if(map.get(nums[i]) == 0) {
-                continue;
-            }
+            currentPermutation.add(value);
+            map.put(value, count - 1);
 
-            currentPermutation.add(nums[i]);
-            map.put(nums[i], map.get(nums[i]) - 1);
-
-            backtrack(i, currentPermutation);
+            backtrack(map, currentPermutation);
 
             currentPermutation.remove(currentPermutation.size() - 1);
-            map.put(nums[i], map.get(nums[i]) + 1);
+            map.put(value, count);
         }
     }
 }
