@@ -12,3 +12,5 @@ Problem solving practice by solving leetcode questions.
 8. combinations: https://github.com/soumyaPrakashB/LeetCode/blob/main/LeetCode77/Combinations.java
 9. subsets: https://github.com/soumyaPrakashB/LeetCode/blob/main/LeetCode78/SubSets.java
 10. subsets-II: https://github.com/soumyaPrakashB/LeetCode/blob/main/LeetCode90/SubSets2.java
+11. restore-ip-address: https://github.com/soumyaPrakashB/LeetCode/blob/main/LeetCode93/RestoreIpAddress.java
+    This solution is similar to that of palindrome partitioning. We will only consider a substring if it is eligible to be part of an IP (0 <= num <= 255 && no leading zeros). In case of palindrome partition, we only consider those substring which are palindrome themselves.
