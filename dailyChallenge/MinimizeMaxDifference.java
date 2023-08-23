@@ -1,3 +1,7 @@
+package dailyChallenge;
+
+import java.util.Arrays;
+
 class Solution {
     public int minimizeMax(int[] nums, int p) {
 
