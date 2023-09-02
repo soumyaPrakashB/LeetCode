@@ -8,13 +8,9 @@ public class NQueens_51 {
 
     int n;
 
-    int noOfQueens;
-
     public List<List<String>> solveNQueens(int n) {
 
         this.n = n;
-
-        this.noOfQueens = n;
 
         resultArray = new String[n][n];
 
@@ -25,7 +21,7 @@ public class NQueens_51 {
 
     private void backtrack(String[][] board, int m) {
 
-        if(m == n && noOfQueens == 0) {
+        if(m == n) {
             List<String> currentSet = new ArrayList<>();
             for(int i = 0; i < n; i++) {
                 StringBuilder sb = new StringBuilder();
@@ -47,12 +43,10 @@ public class NQueens_51 {
         for(int j = 0; j < n; j++) {
             if (isPossibleToPlace(board, m, j)) {
                 board[m][j] = "Q";
-                noOfQueens--;
 
                 backtrack(board, m + 1);
 
                 board[m][j] = ".";
-                noOfQueens++;
             }
         }
     }
@@ -93,7 +87,7 @@ public class NQueens_51 {
     public static void main(String[] args) {
         NQueens_51 nQueens51 = new NQueens_51();
 
-        System.out.println(nQueens51.solveNQueens(1));
+        System.out.println(nQueens51.solveNQueens(2));
         System.out.println(nQueens51.solveNQueens(4));
     }
 }
